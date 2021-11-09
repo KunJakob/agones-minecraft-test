@@ -136,7 +136,7 @@ class SDKApi(basePath: kotlin.String = io.github.kunjakob.agonesclient.apis.SDKA
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun health(body: kotlin.Any): kotlin.Any {
+    fun health(body: Any?): kotlin.Any {
         val localVariableBody: kotlin.Any? = body
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

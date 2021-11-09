@@ -24,6 +24,10 @@ public class AgonesResponder : JavaPlugin(), Listener {
         doDelayed(20L) {
             agones.ready(null);
         }
+
+        doRepeating(0, 4L) {
+            agones.health(null);
+        }
     }
 
     override fun onDisable() {
@@ -31,7 +35,7 @@ public class AgonesResponder : JavaPlugin(), Listener {
     }
 
     @EventHandler
-    fun AsyncChatEvent(e: AsyncPlayerChatEvent) {
+    fun onAsyncChatEvent(e: AsyncPlayerChatEvent) {
         if (e.message.equals("allocate", true)) {
             doAsync { agones.allocate(null) }
         } else if (e.message.equals("shutdown", true)) {
@@ -45,15 +49,21 @@ public class AgonesResponder : JavaPlugin(), Listener {
     }
 }
 
-public inline fun doDelayed(seconds: Long, crossinline f: () -> Unit): BukkitTask? {
+public fun doDelayed(seconds: Long, f: () -> Unit): BukkitTask? {
     return AgonesResponder.instance?.let {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(it, { f() } as Runnable, seconds * 20L)
+        return Bukkit.getScheduler().runTaskLaterAsynchronously(it, f, seconds * 20L)
     };
-
 }
 
+public fun doRepeating(delay: Long, interval: Long, f: () -> Unit): BukkitTask? {
+    return AgonesResponder.instance?.let {
+        return Bukkit.getScheduler().runTaskTimerAsynchronously(it, f, delay * 20L, interval * 20L);
+    };
+}
+
+
 public inline fun doAsync(crossinline f: () -> Unit): BukkitTask? {
-    return AgonesResponder.instance?.let { Bukkit.getScheduler().runTaskAsynchronously(it, { f() } as Runnable) }
+    return AgonesResponder.instance?.let { return Bukkit.getScheduler().runTaskAsynchronously(it, { f() } as Runnable) }
 }
 
 
