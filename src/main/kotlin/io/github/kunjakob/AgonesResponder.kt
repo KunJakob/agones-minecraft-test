@@ -6,6 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitTask
 
@@ -34,6 +35,12 @@ public class AgonesResponder : JavaPlugin(), Listener {
         agones.shutdown(null);
     }
 
+
+    @EventHandler
+    fun onPlayerJoin(e: PlayerJoinEvent) {
+        e.player.sendMessage("Welcome to the agones test.")
+    }
+
     @EventHandler
     fun onAsyncChatEvent(e: AsyncPlayerChatEvent) {
         if (e.message.equals("allocate", true)) {
@@ -46,6 +53,7 @@ public class AgonesResponder : JavaPlugin(), Listener {
             duration.seconds = split[1]
             doAsync { agones.reserve(duration) }
         }
+        e.player.sendMessage("ACK: ${e.message}")
     }
 }
 
