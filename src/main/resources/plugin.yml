@@ -1,0 +1,5 @@
+name: AgonesResponder
+version: 1.0.0
+author: kunjakob
+main: io.github.kunjakob.AgonesResponder
+api-version: 1.17
