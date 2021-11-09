@@ -37,12 +37,12 @@ public class AgonesResponder : JavaPlugin(), Listener {
 
 
     @EventHandler
-    fun onPlayerJoin(e: PlayerJoinEvent) {
+    public fun onPlayerJoin(e: PlayerJoinEvent) {
         e.player.sendMessage("Welcome to the agones test.")
     }
 
     @EventHandler
-    fun onAsyncChatEvent(e: AsyncPlayerChatEvent) {
+    public fun onAsyncChatEvent(e: AsyncPlayerChatEvent) {
         if (e.message.equals("allocate", true)) {
             doAsync { agones.allocate(null) }
         } else if (e.message.equals("shutdown", true)) {
