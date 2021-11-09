@@ -21,8 +21,8 @@ public class AgonesResponder : JavaPlugin(), Listener {
     override fun onEnable() {
         instance = this;
         this.agones = SDKApi();
-
-        doDelayed(20L) {
+        System.out.println("Agones Responder enabled. Triggering ready state")
+        doDelayed(10L) {
             agones.ready(null);
         }
 
