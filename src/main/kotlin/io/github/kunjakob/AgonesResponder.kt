@@ -22,6 +22,8 @@ public class AgonesResponder : JavaPlugin(), Listener {
         instance = this;
         this.agones = SDKApi();
         System.out.println("Agones Responder enabled. Triggering ready state")
+        Bukkit.getPluginManager().registerEvents(this, this);
+
         doDelayed(10L) {
             agones.ready(null);
         }
@@ -29,6 +31,7 @@ public class AgonesResponder : JavaPlugin(), Listener {
         doRepeating(0, 4L) {
             agones.health(null);
         }
+
     }
 
     override fun onDisable() {
