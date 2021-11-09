@@ -1,0 +1,9 @@
+/build
+/.idea
+/.gradle
+/.openapi-generator
+
+.openapi-generator-ignore
+
+/docs
+/gen
