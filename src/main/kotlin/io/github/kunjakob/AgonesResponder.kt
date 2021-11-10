@@ -8,7 +8,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.scheduler.BukkitTask
 
 public class AgonesResponder : JavaPlugin(), Listener {
     companion object {
@@ -60,21 +59,21 @@ public class AgonesResponder : JavaPlugin(), Listener {
     }
 }
 
-public fun doDelayed(seconds: Long, f: () -> Unit): BukkitTask? {
-    return AgonesResponder.instance?.let {
-        return Bukkit.getScheduler().runTaskLaterAsynchronously(it, f, seconds * 20L)
+public fun doDelayed(seconds: Long, f: () -> Unit) {
+    AgonesResponder.instance?.let {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(it, f, seconds * 20L)
     };
 }
 
-public fun doRepeating(delay: Long, interval: Long, f: () -> Unit): BukkitTask? {
-    return AgonesResponder.instance?.let {
-        return Bukkit.getScheduler().runTaskTimerAsynchronously(it, f, delay * 20L, interval * 20L);
+public fun doRepeating(delay: Long, interval: Long, f: () -> Unit) {
+    AgonesResponder.instance?.let {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(it, f, delay * 20L, interval * 20L);
     };
 }
 
 
-public inline fun doAsync(crossinline f: () -> Unit): BukkitTask? {
-    return AgonesResponder.instance?.let { return Bukkit.getScheduler().runTaskAsynchronously(it, { f() } as Runnable) }
+public fun doAsync( f: () -> Unit) {
+    AgonesResponder.instance?.let { Bukkit.getScheduler().runTaskAsynchronously(it, f) }
 }
 
 
